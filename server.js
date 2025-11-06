@@ -9,8 +9,20 @@ dotenv.config();
 // Create Express application instance
 const app = express();
 
+// CORS configuration - allow frontend origins
+const corsOptions = {
+  origin: [
+    'http://localhost:3000',              // Local React development
+    'http://localhost:5173',              // Local Vite development
+    'https://clima-cast-ai.vercel.app',   // Production frontend
+    'https://*.vercel.app'                // All Vercel preview deployments
+  ],
+  credentials: true,
+  optionsSuccessStatus: 200
+};
+
 // Middleware to enable CORS
-app.use(cors());
+app.use(cors(corsOptions));
 
 // Middleware to parse JSON request bodies
 app.use(express.json());
@@ -74,7 +86,7 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log('╔════════════════════════════════════════════════════════════╗');
   console.log('║                                                            ║');
-  console.log('║  🚀 ClimaCast AI Server - Powered by Prithvi WxC          ║');
+  console.log('║    🚀 ClimaCast AI Server - Powered by Prithvi WxC         ║');
   console.log('║                                                            ║');
   console.log('╚════════════════════════════════════════════════════════════╝');
   console.log();
