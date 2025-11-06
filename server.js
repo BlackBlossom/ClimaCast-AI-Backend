@@ -11,13 +11,29 @@ const app = express();
 
 // CORS configuration - allow frontend origins
 const corsOptions = {
-  origin: [
-    'http://localhost:3000',              // Local React development
-    'http://localhost:5173',              // Local Vite development
-    'http://localhost:5174',              // Local Vite development
-    'https://clima-cast-ai.vercel.app',   // Production frontend
-    'https://*.vercel.app'                // All Vercel preview deployments
-  ],
+  origin: function (origin, callback) {
+    const allowedOrigins = [
+      'http://localhost:3000',              // Local React development
+      'http://localhost:5173',              // Local Vite development
+      'http://localhost:5174',              // Local Vite development (alt port)
+      'https://clima-cast-ai.vercel.app'    // Production frontend
+    ];
+    
+    // Allow requests with no origin (like mobile apps, Postman, etc.)
+    if (!origin) return callback(null, true);
+    
+    // Allow all Vercel preview deployments (clima-cast-ai-*.vercel.app)
+    if (origin.includes('.vercel.app')) {
+      return callback(null, true);
+    }
+    
+    // Check if origin is in allowed list
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+    
+    callback(new Error('Not allowed by CORS'));
+  },
   credentials: true,
   optionsSuccessStatus: 200
 };

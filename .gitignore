@@ -1,5 +1,4 @@
 node_modules/
-.env
 *.log
 .DS_Store
 .vscode/
@@ -7,3 +6,4 @@ COMPLETE.md
 TESTING.md
 test-api.ps1
 *.txt
+config.bat
