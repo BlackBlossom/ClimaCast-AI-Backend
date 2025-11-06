@@ -14,6 +14,7 @@ const corsOptions = {
   origin: [
     'http://localhost:3000',              // Local React development
     'http://localhost:5173',              // Local Vite development
+    'http://localhost:5174',              // Local Vite development
     'https://clima-cast-ai.vercel.app',   // Production frontend
     'https://*.vercel.app'                // All Vercel preview deployments
   ],
